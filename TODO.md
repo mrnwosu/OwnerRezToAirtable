@@ -18,6 +18,8 @@
 - Make sure dates are correct
 - 2 Versions of API... !!MUST USE STABLE
 - Property  coordinates may be off
+
+- Booking Status and Booking Type need formula on Airtable for Yes/No
   
 **Possible additional Tables to be added**
 

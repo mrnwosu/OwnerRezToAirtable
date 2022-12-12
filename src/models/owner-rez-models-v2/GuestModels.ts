@@ -1,6 +1,6 @@
 import { AddressModel,EmailAddressModel,FieldValueModel, PhoneModel } from './CommonModels';
 
-export interface GuestModel{
+export interface GuestModelV2{
     addresses: AddressModel[]
     email_addresses: EmailAddressModel[]
     fields: FieldValueModel[]
@@ -8,7 +8,7 @@ export interface GuestModel{
     id: number
     last_name: string
     notes: string
-    phones: PhoneModel
+    phones: PhoneModel[]
     tags: string[]
 } 
 

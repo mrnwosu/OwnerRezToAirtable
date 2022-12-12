@@ -18,6 +18,7 @@ export enum AddressType{
 
 export interface AddressModel
 {
+    city: string
     country: string
     id: number
     is_default: boolean
@@ -40,6 +41,7 @@ export interface EmailAddressModel{
     id: number
     is_default: boolean
     type: ContactType
+    address: string
 }
 
 export interface PhoneModel{

@@ -34,19 +34,19 @@ export interface BookingDoorCodeModel{
 }
 
 export enum BookingStatus{
-    Active = 1,
-    Canceled = 2, 
-    Pending = 3
+    active = 1,
+    canceled = 2, 
+    pending = 3
 }
 
 export enum BookingType{
-    Booking = 1, 
-    Block = 2,
-    QuoteHold = 3,
-    LinkedAvailability = 4
+    booking = 1, 
+    block = 2,
+    quoteHold = 3,
+    linkedAvailability = 4
 }
 
-export interface BookingsModel{
+export interface BookingsModelV2{
     adults: number
     arrival: Date
     booked_utc: Date

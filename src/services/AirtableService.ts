@@ -26,6 +26,14 @@ export default class AirtableService{
         return result
     }
 
+    async createRecord(table: string, fields: any){
+        return this._base(table).create(fields)
+    }
+
+    async createRecordBulk(table: string, fields: any[]){
+        return this._base(table).create(fields)
+    }
+
     filterByFormulaBuilder(fields:{}){
         let formula = ""
         let keys = Object.keys(fields)
