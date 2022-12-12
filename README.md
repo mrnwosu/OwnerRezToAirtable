@@ -1,10 +1,5 @@
 # Token adventure Airtable Database Project
 
-**Api Information**
-
-- info@potomacadventure.com
-- pt_72t008hmn2gpvjwfvdgtmsp5iqa0wefv
-
 ## Requirements
 
 **Objects needed are as follows:**
@@ -16,9 +11,8 @@
 **Concerns**
 
 - Make sure dates are correct
-- 2 Versions of API... !!MUST USE STABLE
-- Property  coordinates may be off
-
+- 2 Versions of API... !!Will use v2
+- Property  coordinates may be off due to floating-point precision
 - Booking Status and Booking Type need formula on Airtable for Yes/No
   
 **Possible additional Tables to be added**
