@@ -1,4 +1,4 @@
-# Token adventure Airtable Database Project
+# OZ to Airtable Database Project
 
 ## Requirements
 
