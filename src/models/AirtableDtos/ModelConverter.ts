@@ -1,6 +1,6 @@
 import { BookingDto } from './BookingDto';
 import { BookingsModelV2, BookingStatus, BookingType } from '../owner-rez-models-v2/BookingsModels';
-import { PropertyV2 } from '../owner-rez-models-v1/PropertyModels';
+import { PropertyModelV1 } from '../owner-rez-models-v1/PropertyModelV1';
 import { PropertyDto } from './PropertyDto';
 
 //Refactor this
@@ -38,7 +38,7 @@ export class ModelConverter {
         return dto;
     }
     
-    static propertyToDto(prop: PropertyV2): PropertyDto{
+    static propertyToDto(prop: PropertyModelV1): PropertyDto{
         let dto = new PropertyDto()
         dto.id = prop.Id
         dto.name = prop.Name

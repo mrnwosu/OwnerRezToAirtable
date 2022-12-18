@@ -6,10 +6,12 @@ import AirtableService from './services/AirtableService';
 import { OwnerBizApiService } from './services/OwnerBizApiService';
 import { ModelConverter } from "./models/AirtableDtos/ModelConverter";
 import express from 'express'
-import { PropertyV2 } from './models/owner-rez-models-v1/PropertyModels';
+import { PropertyModelV1 } from './models/owner-rez-models-v1/PropertyModelV1';
 import { WebhookData } from './models/Webhooks/WebhookData';
 import { ActionTypes } from './models/Webhooks/ActionTypes';
 import { EntityTypes } from './models/Webhooks/EntityTypes';
+import { PropertyModelV2 } from './models/owner-rez-models-v2/PropertyModels';
+import { apiVersion } from 'airtable';
 
 
 const ownerResUsername = process.env.OWNER_REZ_USERNAME
@@ -48,7 +50,7 @@ async function loadProperties(date: Date, max: number = Number.MAX_VALUE){
     let offset = 0
 
     while(count < max){
-        var propertyResults = await obService.getProperties<PropertyV2>(date, offset)
+        var propertyResults = await obService.getProperties<PropertyModelV1>(date, offset, 'V1')
         for(const props of propertyResults.items){
             try{
                 var dto = await getPropertyDto(props)
@@ -89,7 +91,7 @@ async function loadBookings(date: Date, max: number = Number.MAX_VALUE){
     console.log(`Created ${count} records`)
 }
 
-async function getPropertyDto(prop: PropertyV2): Promise<PropertyDto>{
+async function getPropertyDto(prop: PropertyModelV1): Promise<PropertyDto>{
     return new Promise<PropertyDto>((resolve, reject) => {
         var dto = ModelConverter.propertyToDto(prop)
         resolve(dto)
@@ -118,8 +120,6 @@ async function getBookingDto(booking: BookingModelV2): Promise<BookingDto>{
     }
     return dtoForAirtable
 }
-
-
 
 const main = async (req:express.Request, res: express.Response)=> {
     const failReason = validateEnvVariables()
@@ -187,7 +187,8 @@ async function handle_entity_update(data: WebhookData): Promise<string>{
             const recordFromAirtable = await atService.getRecordsByFields(TABLE_NAMES.BOOKINGS, {'id': data.entity_id})
 
             if(recordFromAirtable &&  recordFromAirtable.length > 0){
-                console.log('Record Exists. Replacing row')
+                console.log('Booking record exists. Replacing row')
+                atService.replaceRecord(TABLE_NAMES.BOOKINGS, dto)
                 return "Booking Updated"            
             }
             else{

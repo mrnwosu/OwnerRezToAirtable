@@ -18,7 +18,7 @@ export interface PropertiesSearchFilter
     payment_method_id: number
   }
 
-  export interface PropertyModel{
+  export interface PropertyModelV2{
     active: boolean
     display_order: number
     external_display_order: number

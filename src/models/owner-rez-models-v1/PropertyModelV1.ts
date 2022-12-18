@@ -1,6 +1,6 @@
 import { Address, DayOfWeekFlags, EntityType, FirstPaymentRule, PaymentMethodMode, PendingDeadlineAction, PendingForItem, Phone, SecondPaymentRule, SecurityDepositReleaseEmailType, SecurityDepositRule, SecurityDepositType, VisibleOptionRule } from "./CommonModelsV1"
 
-export interface PropertyV2{
+export interface PropertyModelV1 {
   Key: string
   AddressId: number
   Name: string

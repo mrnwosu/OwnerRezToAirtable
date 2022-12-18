@@ -3,6 +3,7 @@ import { FieldSet } from 'airtable/lib/field_set';
 import { QueryParams } from 'airtable/lib/query_params';
 
 export default class AirtableService{
+    
     _base: airtable.Base;
 
     constructor(apiKey: any, baseId: any) {
@@ -22,16 +23,20 @@ export default class AirtableService{
         options.pageSize = pageSize
         options.offset = (pageNumber-1) * pageSize 
 
-        const result = await this._base(table).select(options).firstPage()
-        return result
+        return await this._base(table).select(options).firstPage()
     }
 
     async createRecord(table: string, fields: any){
-        return this._base(table).create(fields)
+        return await this._base(table).create(fields)
     }
 
     async createRecordBulk(table: string, fields: any[]){
-        return this._base(table).create(fields)
+        return await this._base(table).create(fields)
+    }
+
+
+    async replaceRecord(table: string, fields: any) {
+        return await this._base(table).replace(fields)
     }
 
     filterByFormulaBuilder(fields:{}){

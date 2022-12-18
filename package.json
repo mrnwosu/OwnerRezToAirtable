@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build-ts-function-webHookRecieved": "tsc --outdir './functions/webHookReceived' --sourceMap false"
   },
   "keywords": [],
@@ -19,7 +19,11 @@
   "devDependencies": {
     "@types/airtable": "^0.10.1",
     "@types/axios": "^0.14.0",
+    "@types/chai": "^4.3.4",
     "@types/express": "^4.17.15",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }
