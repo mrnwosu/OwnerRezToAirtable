@@ -1,6 +1,6 @@
-import { BookingDepositStatus, ChannelCancellationEntity, ChargeSource, EntrySource, FirstPaymentRule, PaymentMethodMode, PendingDeadlineAction, PendingForItem, QuickBooksInvoiceDateType, QuickBooksInvoiceNumberType, SecondPaymentRule, SecurityDepositRule, SecurityDepositType, VisibleOptionRule } from "./CommonModels"
+import { BookingDepositStatus, ChannelCancellationEntity, ChargeSource, EntrySource, FirstPaymentRule, PaymentMethodMode, PendingDeadlineAction, PendingForItem, QuickBooksInvoiceDateType, QuickBooksInvoiceNumberType, SecondPaymentRule, SecurityDepositRule, SecurityDepositType, VisibleOptionRule } from "./CommonModelsV1"
 
-export interface BookingModel{
+export interface BookingModelV1{
     FormKey: string
     InquiryId: number
     QuoteId: number

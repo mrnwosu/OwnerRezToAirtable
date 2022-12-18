@@ -5,7 +5,7 @@ import { QueryParams } from 'airtable/lib/query_params';
 export default class AirtableService{
     _base: airtable.Base;
 
-    constructor(apiKey: string, baseId: string) {
+    constructor(apiKey: any, baseId: any) {
         this._base = new airtable({apiKey:apiKey}).base(baseId)
     }
 

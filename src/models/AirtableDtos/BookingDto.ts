@@ -25,4 +25,7 @@ export class BookingDto{
     guest_email: string = "";
     guest_phones: string = "";
     door_code: string = "";
+    charges: string = "";
 }
+
+
