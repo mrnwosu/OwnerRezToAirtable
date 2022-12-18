@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import AirtableService from "./AirtableService"
 
-describe('Should get records from airtable', () => {
+describe('Airtable Service Tests', () => {
     let airtableService: AirtableService
     const TABLE_NAMES = {
         PROPERTIES: "PA Properties - Test",

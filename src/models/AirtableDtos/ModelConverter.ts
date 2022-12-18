@@ -1,12 +1,13 @@
 import { BookingDto } from './BookingDto';
-import { BookingsModelV2, BookingStatus, BookingType } from '../owner-rez-models-v2/BookingsModels';
+import { BookingStatus, BookingType } from '../owner-rez-models-v2/BookingsModels';
+import { BookingModelV2 } from "../owner-rez-models-v2/BookingsModelV2";
 import { PropertyModelV1 } from '../owner-rez-models-v1/PropertyModelV1';
 import { PropertyDto } from './PropertyDto';
 
 //Refactor this
 
 export class ModelConverter {
-    static bookingToDio(booking: BookingsModelV2): BookingDto {
+    static bookingToDio(booking: BookingModelV2): BookingDto {
         let dto = new BookingDto();
         dto.adults = booking.adults;
         dto.arrival = booking.arrival;

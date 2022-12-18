@@ -1,6 +1,6 @@
 import { BookingDto } from './models/AirtableDtos/BookingDto';
 import { PropertyDto } from "./models/AirtableDtos/PropertyDto";
-import { BookingsModelV2 as BookingModelV2 } from './models/owner-rez-models-v2/BookingsModels';
+import { BookingModelV2 as BookingModelV2 } from "./models/owner-rez-models-v2/BookingsModelV2";
 import { GuestModelV2 } from './models/owner-rez-models-v2/GuestModels';
 import AirtableService from './services/AirtableService';
 import { OwnerBizApiService } from './services/OwnerBizApiService';
