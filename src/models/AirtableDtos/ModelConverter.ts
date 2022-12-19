@@ -7,7 +7,7 @@ import { PropertyDto } from './PropertyDto';
 //Refactor this
 
 export class ModelConverter {
-    static bookingToDio(booking: BookingModelV2): BookingDto {
+    static bookingToDto(booking: BookingModelV2): BookingDto {
         let dto = new BookingDto();
         dto.adults = booking.adults;
         dto.arrival = booking.arrival;

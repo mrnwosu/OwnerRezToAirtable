@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "build-ts-function-webHookRecieved": "tsc --outdir './functions/webHookReceived' --sourceMap false"
+    "build-ts-webhookRecieved": "tsc --outdir ./functions/webhookReceived --sourceMap false -p tsconfig.json",
+    "build-ts-webhookRecieved-watch": "tsc -w --outdir ./functions/webhookReceived --sourceMap false -p tsconfig.json",
+    "emu-webhookRecieved": "npx functions-framework --source=/functions/webhookRecieved --target=handle_webhook",
+    "gcp-deploy": "gcloud functions deploy handle_webhook --trigger-http --runtime nodejs16 --region=us-east1 --max-instances=10 --allow-unauthenticated"
   },
   "keywords": [],
   "author": "",

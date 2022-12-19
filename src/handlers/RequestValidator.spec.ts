@@ -1,0 +1,1 @@
+describe('Should validate auth')

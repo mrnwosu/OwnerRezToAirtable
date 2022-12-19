@@ -22,7 +22,6 @@ export default class AirtableService{
 
         options.pageSize = pageSize
         options.offset = (pageNumber-1) * pageSize 
-
         return await this._base(table).select(options).firstPage()
     }
 
@@ -35,8 +34,8 @@ export default class AirtableService{
     }
 
 
-    async replaceRecord(table: string, fields: any) {
-        return await this._base(table).replace(fields)
+    async updateRecord(recordId: string, table: string, fields: any) {
+        return await this._base(table).replace(recordId, fields)
     }
 
     filterByFormulaBuilder(fields:{}){

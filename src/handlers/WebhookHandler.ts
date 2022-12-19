@@ -53,8 +53,10 @@ export class WebhookHandler{
         switch(data.entity_type){
             case EntityTypes.booking:
                 const bookingFromOz = await this.obService.getBookingById<BookingModelV2>(data.entity_id)
-                const dto = this.getBookingDto(bookingFromOz)
-                this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
+                const dto = await this.getBookingDto(bookingFromOz)
+                console.log(dto)
+                var result = await this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
+                console.log(result)
                 return "Booking Created"            
             default:
                 return "Entity type not yet supported"
@@ -68,20 +70,21 @@ export class WebhookHandler{
                 const bookingFromOz = await this.obService.getBookingById<BookingModelV2>(data.entity_id)
                 console.log('Got Booking')
     
-                const dto = this.getBookingDto(bookingFromOz)
-                
+                const dto = await this.getBookingDto(bookingFromOz)
+                console.log(dto)
     
-                console.log('Checking if record exists ')
+                console.log('Checking if record exists in airtable')
                 const recordFromAirtable = await this.atService.getRecordsByFields(this.TABLE_NAMES.BOOKINGS, {'id': data.entity_id})
     
                 if(recordFromAirtable &&  recordFromAirtable.length > 0){
-                    console.log('Booking record exists. Replacing row')
-                    this.atService.replaceRecord(this.TABLE_NAMES.BOOKINGS, dto)
+                    console.log('Booking record exists. Updating row')
+                    await this.atService.updateRecord(recordFromAirtable[0].id, this.TABLE_NAMES.BOOKINGS, dto)
                     return "Booking Updated"            
                 }
                 else{
                     console.log("Record doesn't exist. Creating")
-                    this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
+                    console.log(this.TABLE_NAMES.BOOKINGS, dto)
+                    await this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
                     return "Record not in Airtable. Booking Created"
                 }
             default:
@@ -158,7 +161,7 @@ export class WebhookHandler{
     }
     
     async getBookingDto(booking: BookingModelV2): Promise<BookingDto>{
-        var dtoForAirtable = ModelConverter.bookingToDio(booking)
+        var dtoForAirtable = ModelConverter.bookingToDto(booking)
         
         if(!booking.guest_id) return dtoForAirtable    
     
