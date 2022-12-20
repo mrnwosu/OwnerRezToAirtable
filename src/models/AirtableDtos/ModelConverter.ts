@@ -36,7 +36,9 @@ export class ModelConverter {
         if (booking.charges) {
             dto.charges = JSON.stringify(booking.charges);
         }
+        dto.last_updated = new Date()
         return dto;
+        
     }
     
     static propertyToDto(prop: PropertyModelV1): PropertyDto{

@@ -72,21 +72,7 @@ export class WebhookHandler{
     
                 const dto = await this.getBookingDto(bookingFromOz)
                 console.log(dto)
-    
-                console.log('Checking if record exists in airtable')
-                const recordFromAirtable = await this.atService.getRecordsByFields(this.TABLE_NAMES.BOOKINGS, {'id': data.entity_id})
-    
-                if(recordFromAirtable &&  recordFromAirtable.length > 0){
-                    console.log('Booking record exists. Updating row')
-                    await this.atService.updateRecord(recordFromAirtable[0].id, this.TABLE_NAMES.BOOKINGS, dto)
-                    return "Booking Updated"            
-                }
-                else{
-                    console.log("Record doesn't exist. Creating")
-                    console.log(this.TABLE_NAMES.BOOKINGS, dto)
-                    await this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
-                    return "Record not in Airtable. Booking Created"
-                }
+                return await this.saveOrUpdateBooking(dto)
             default:
                 return "Entity type not yet supported"
             }
@@ -133,14 +119,14 @@ export class WebhookHandler{
     async loadBookings(date: Date, max: number = Number.MAX_VALUE){
         let count = 0
         let offset = 0
-    
+        
         while(count < max){
             var bookingsResults = await this.obService.getBookings<BookingModelV2>(date, offset)
             for(const booking of bookingsResults.items){
                 try{
                     var dto = await this.getBookingDto(booking)
                     console.log(dto)
-                    await this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)        
+                    await this.saveOrUpdateBooking(dto)        
                 }
                 catch(err){
                     console.error(err)
@@ -151,6 +137,7 @@ export class WebhookHandler{
             offset += 100
         }
         console.log(`Created ${count} records`)
+        return true
     }
     
     async getPropertyDto(prop: PropertyModelV1): Promise<PropertyDto>{
@@ -182,5 +169,21 @@ export class WebhookHandler{
         }
         return dtoForAirtable
     }
-    
+
+    async saveOrUpdateBooking(dto: BookingDto): Promise<string>
+    {
+        console.log('Checking if record exists in airtable')
+        const recordFromAirtable = await this.atService.getRecordsByFields(this.TABLE_NAMES.BOOKINGS, {'id': dto.id})
+        if(recordFromAirtable &&  recordFromAirtable.length > 0){
+            console.log('Booking record exists. Updating row')
+            await this.atService.updateRecord(recordFromAirtable[0].id, this.TABLE_NAMES.BOOKINGS, dto)
+            return "Booking Updated"            
+        }
+        else{
+            console.log("Record doesn't exist. Creating")
+            console.log(this.TABLE_NAMES.BOOKINGS, dto)
+            await this.atService.createRecord(this.TABLE_NAMES.BOOKINGS, dto)
+            return "Record not in Airtable. Booking Created"
+        }
+    }
 }

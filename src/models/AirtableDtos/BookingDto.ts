@@ -1,4 +1,5 @@
 export class BookingDto{
+    last_updated: Date = new Date(0);
     id: number = 0;
     adults: number = 0;
     arrival: Date = new Date(0);

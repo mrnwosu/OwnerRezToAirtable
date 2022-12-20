@@ -16,7 +16,7 @@ export class OwnerBizApiService{
     getOptions(endPoint: string, data: any = null, params: any = null,  method: string = "GET", apiVersion: string = "V2"):AxiosRequestConfig{
         return {
             method: method,
-            url: `${apiVersion === "V2" ? 'https://api.ownerreservations.com/v2/' : 'https://secure.ownerreservations.com'}${endPoint}`,
+            url: `${apiVersion === "V2" ? 'https://api.ownerreservations.com/v2/' : 'https://secure.ownerreservations.com/'}${endPoint}`,
             headers: {
               'Content-Type': 'application/json'
             },
@@ -64,8 +64,8 @@ export class OwnerBizApiService{
         return (await axios(options)).data
     }
 
-    private async searchItems<TModel>(entityType: string, params: any, apiVersion: string = 'V2'): Promise<ResponseModel<TModel>>{
-        var options = this.getOptions(entityType, null, params, apiVersion = apiVersion)
+    private async searchItems<TModel>(entityType: string, params: any, method: string = "GET", apiVersion: string = 'V2'): Promise<ResponseModel<TModel>>{
+        var options = this.getOptions(entityType, null, params, method, apiVersion)
         return (await axios(options)).data
     }
 }

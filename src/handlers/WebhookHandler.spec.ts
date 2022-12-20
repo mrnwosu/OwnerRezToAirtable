@@ -13,21 +13,32 @@ describe('Webhook Handler E2E Tests', ()=>{
         handler = new WebhookHandler(ownerResUsername, ownerResPassword, atApiKey, atBaseId)
     })
     let data: WebhookData
-    describe('Bookings', ()=>{
+    // describe('Bookings', ()=>{
         
-        before(()=> {
-        data = JSON.parse(`{
-                    "id": 12345,
-                    "user_id": 56789,
-                    "action": "entity_update",
-                    "entity_type": "booking",
-                    "entity_id": 6703607
-                }`) as WebhookData
-        })      
+    //     before(()=> {
+    //     data = JSON.parse(`{
+    //                 "id": 12345,
+    //                 "user_id": 56789,
+    //                 "action": "entity_update",
+    //                 "entity_type": "booking",
+    //                 "entity_id": 6703607
+    //             }`) as WebhookData
+    //     })      
         
-        it("Should create record that doesn't exists", async () =>{
-            var result = await handler.handle_webhook(data)
-            result.should.equal('Record not in Airtable. Booking Created')
+    //     it("Should create record that doesn't exists", async () =>{
+    //         var result = await handler.handle_webhook(data)
+    //         result.should.equal('Record not in Airtable. Booking Created')
+    //     })
+    // })
+
+    describe('One off hacks', async ()=>{
+        it('Should load previous bookings', async () => {
+            const date = new Date()
+            date.setDate(date.getDate() - 60)
+            
+            var result = await handler.loadBookings(date)
+            result.should.equal(true)
         })
     })
 })
+
